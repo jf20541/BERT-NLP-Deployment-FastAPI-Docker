@@ -4,6 +4,7 @@ import re
 from nltk.corpus import wordnet
 import config
 
+
 def remove_special_characters(text):
     """Remove unwanted characters [!@#$%^&*()]
     Args:
@@ -16,6 +17,7 @@ def remove_special_characters(text):
     review = r"[^a-zA-z0-9\s]"
     review = re.sub(review, "", text)
     return review.lower()
+
 
 if __name__ == "__main__":
     df = pd.read_csv(config.TRAINING_FILE)

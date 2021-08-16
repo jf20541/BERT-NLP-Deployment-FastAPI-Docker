@@ -17,8 +17,8 @@ class Engine():
     def train_fn(self, train_loader):
         target_values, output_values = [], []
         
-        features = 
-        targets = 
+        features = pass
+        targets = pass
 
         self.model.train()
 
@@ -36,4 +36,5 @@ class Engine():
     def eval_fn(self, test_loader):
         self.model.eval()
         with torch.no_grad():
+            pass
             

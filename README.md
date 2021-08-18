@@ -54,8 +54,8 @@ Accuracy Mean = 84.77%
     │   ├── engine.py             # Class Engine for Training, Evaluation, and BCE Loss function 
     │   ├── dataset.py            # Custom Dataset that return a paris of [input_ids, targets, tokens, masks] as tensors
     │   ├── create_folds_clean.py # Removed unwanted characters and initiated Stratified 5-Folds cross-validator
-    │   ├── logistic_reg.py       # Initialized Logistic Regression with Bag of Words and evaluated metric
-    │   ├── naivebayes.py         # Initialized Naive Bayes Classifier for multinomial models with Bag of Words and evaluated metric
+    │   ├── logistic_reg.py       # Logistic Regression with Bag of Words and evaluated metric
+    │   ├── naivebayes.py         # Naive Bayes Classifier for multinomial models with Bag of Words and evaluated metric
     │   ├── googlecolab.py        # Set up VSCode on Google Colab 
     │   └── config.py             # Defined path as global variable
     ├── inputs

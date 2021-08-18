@@ -32,13 +32,13 @@ class Engine:
             targets = data["sentiment"].to(self.device, torch.float)
             # zero the parameter gradients
             self.optimizer.zero_grad()
-            # forward + backward + optimize
+            # forward + backward + optimize + scheduler
             outputs = self.model(ids, masks, token_type_ids)
             loss = self.loss_fn(outputs, targets)
             loss.backward()
             self.optimizer.step()
             scheduler.step()
-
+            # append to empty list
             final_targets.extend(targets.cpu().detach().numpy().tolist())
             final_predictions.extend(outputs.cpu().detach().numpy().tolist())
         return final_targets, final_predictions

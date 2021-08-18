@@ -10,7 +10,6 @@ class IMDBDataset:
         self.max_len = config.MAX_LEN
 
     def __len__(self):
-        # return len(self.review)
         return self.reviews.shape[0]
 
     def __getitem__(self, item):

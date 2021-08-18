@@ -15,6 +15,7 @@ def train(fold):
     train_df = df[df.kfold != fold].reset_index(drop=True)
     valid_df = df[df.kfold == fold].reset_index(drop=True)
 
+    # define targets (sentiment) and feature (reviews)
     y_train = train_df[["sentiment"]].values
     x_train = train_df.drop(["sentiment", "kfold"], axis=1).values
     y_test = valid_df[["sentiment"]].values
@@ -31,12 +32,15 @@ def train(fold):
     test_loader = torch.utils.data.DataLoader(
         test_dataset, batch_size=config.TEST_BATCH_SIZE
     )
-    # initialize BERT base model to cuda
+    # initialize BERT-base to cuda
     model = BERT()
     model.to(config.DEVICE)
 
+    # list all the model's parameters
     param_optimizer = list(model.named_parameters())
+    # exclude decay for bias and weight layers
     no_decay = ["bias", "LayerNorm.bias", "LayerNorm.weight"]
+    # create a list of dictionaries to optimize
     optimizer_parameters = [
         {
             "params": [
@@ -51,7 +55,7 @@ def train(fold):
             "weight_decay": 0.0,
         },
     ]
-
+    # calcualte number of training steps for scheduler
     num_train_steps = int(len(x_train) / config.TRAIN_BATCH_SIZE * config.EPOCHS)
     # initialize Adam optimizer
     optimizer = AdamW(optimizer_parameters, lr=config.LEARNING_RATE)

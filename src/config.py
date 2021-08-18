@@ -1,5 +1,4 @@
 from transformers import BertTokenizer
-import torch
 
 TRAINING_FILE = "../inputs/train.csv"
 TRAINING_FILE_CLEAN_FOLDS = "../inputs/train_clean_folds.csv"
@@ -11,3 +10,4 @@ EPOCHS = 2
 TRAIN_BATCH_SIZE = 8
 TEST_BATCH_SIZE = 4
 LEARNING_RATE = 0.00003
+DROP_OUT = 0.25

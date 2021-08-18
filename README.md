@@ -10,6 +10,7 @@ Improves the fine-tuning-based approach by using a masked language model (MLM) w
 
 
 ## Output 
+**BERT Base Model**
 ```
 100%|██████████| 5000/5000 
 100%|██████████| 2500/2500 
@@ -26,6 +27,25 @@ Fold:0 Epoch:5/5, Train Accuracy: 99.32%, Eval Accuracy: 94.15%
 100%|██████████| 5000/5000
 100%|██████████| 2500/2500
 ```
+**Logistic Regression with Bag of Words**
+```
+Fold: 0, Accuracy = 88.49%
+Fold: 1, Accuracy = 89.09%
+Fold: 2, Accuracy = 88.38%
+Fold: 3, Accuracy = 89.53%
+Fold: 4, Accuracy = 89.31%
+Accuracy Mean = 88.96%
+
+```
+**Logistic Regression with Bag of Words**
+```
+Fold: 0, Accuracy = 84.81%
+Fold: 1, Accuracy = 84.81%
+Fold: 2, Accuracy = 84.51%
+Fold: 3, Accuracy = 84.96%
+Fold: 4, Accuracy = 84.80%
+Accuracy Mean = 84.77%
+```
 
 ## Repository File Structure
     ├── src          
@@ -33,9 +53,11 @@ Fold:0 Epoch:5/5, Train Accuracy: 99.32%, Eval Accuracy: 94.15%
     │   ├── model.py              # BERT Base architecture with 12 Layers, 768 hidden size, 12 self-attention heads
     │   ├── engine.py             # Class Engine for Training, Evaluation, and BCE Loss function 
     │   ├── dataset.py            # Custom Dataset that return a paris of [input_ids, targets, tokens, masks] as tensors
-    │   ├── create_folds_clean.py # Remove unwanted characters and initiated Stratified 5-Folds cross-validator
+    │   ├── create_folds_clean.py # Removed unwanted characters and initiated Stratified 5-Folds cross-validator
+    │   ├── logistic_reg.py       # Initialized Logistic Regression with Bag of Words and evaluated metric
+    │   ├── naivebayes.py         # Initialized Naive Bayes Classifier for multinomial models with Bag of Words and evaluated metric
     │   ├── googlecolab.py        # Set up VSCode on Google Colab 
-    │   └── config.py             # Define path as global variable
+    │   └── config.py             # Defined path as global variable
     ├── inputs
     │   ├── train_clean_folds.csv # Cleaned Data and Stratified 5-Folds dataset
     │   └── train.csv             # Kaggle IMDB Dataset 

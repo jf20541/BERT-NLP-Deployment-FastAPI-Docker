@@ -11,7 +11,6 @@ Improves the fine-tuning-based approach by using a masked language model (MLM) w
 
 ## Output 
 ```
-....                               ....                  ....
 100%|██████████| 5000/5000 
 100%|██████████| 2500/2500 
 Fold:0 Epoch:1/5, Train Accuracy: 80.22%, Eval Accuracy: 85.38%

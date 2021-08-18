@@ -21,8 +21,12 @@ def remove_special_characters(text):
 
 if __name__ == "__main__":
     df = pd.read_csv(config.TRAINING_FILE)
+    # Label encode sentiment values
     df.sentiment = [1 if each == "positive" else 0 for each in df.sentiment]
+    # remove special characters
     df["review"] = df["review"].apply(remove_special_characters)
+
+    # add kfold column for 5-Folds cross-validator
     df["kfold"] = -1
     df = df.sample(frac=1).reset_index(drop=True)
     targets = df.sentiment.values

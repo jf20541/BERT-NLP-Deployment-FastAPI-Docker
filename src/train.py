@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from transformers import AdamW, get_linear_schedule_with_warmup
 import torch
-from sklearn.metrics import accuracy_score, confusion_matrix, precision_score
+from sklearn.metrics import accuracy_score
 from engine import Engine
 from model import BERT
 from dataset import IMDBDataset
@@ -66,8 +66,8 @@ def train(fold):
         train_outputs = np.array(train_outputs) >= 0.5
         eval_outputs = np.array(eval_outputs) >= 0.5
 
-        train_acc = accuracy_score(train_targets, train_outputs)
-        eval_acc = accuracy_score(eval_targets, eval_outputs)
+        train_acc = accuracy_score(train_targets, train_outputs) * 100
+        eval_acc = accuracy_score(eval_targets, eval_outputs) * 100
         print(
             f"Epoch:{epoch+1}/{config.EPOCHS}, Train Accuracy: {train_acc:.2f}%, Eval Accuracy: {eval_acc:.2f}%"
         )

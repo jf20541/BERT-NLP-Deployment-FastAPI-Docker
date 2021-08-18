@@ -2,12 +2,30 @@
 
 
 ## Objective
-Predict a binary NLP sentiment classification for the IMDB dataset with 50,000 reviews with an evenly distributed target values **[1:Positive & 2:Negative]** using a **BERT (Bidrectional Representations Encoder Transformer**.Measure BERT's performance with **accuracy score** since the target values are evenly distributed. 
+Predict a binary NLP sentiment classification for the IMDB dataset with 50,000 reviews with an evenly distributed target values **[1:Positive & 2:Negative]** using a **BERT (Bidrectional Representations Encoder Transformer)**.Measure BERT's performance with **accuracy score** since the target values are evenly distributed. 
+
+
+## BERT
+Improves the fine-tuning-based approach by using a masked language model (MLM) where it randomly masked (15%) WordPiece token BERTs objective is to predict the original vocabulary (id) of the masked token. MLM also allows to pre-trained a deep bi-directional by fusing left and the right context.
+
 
 ## Output 
 ```
-                               ....                   ....                    ....
-
+....                               ....                  ....
+100%|██████████| 5000/5000 
+100%|██████████| 2500/2500 
+Fold:0 Epoch:1/5, Train Accuracy: 80.22%, Eval Accuracy: 85.38%
+....                               ....                  ....
+100%|██████████| 5000/5000
+100%|██████████| 2500/2500 
+....                               ....                  ....
+Fold:0 Epoch:3/5, Train Accuracy: 92.15%, Eval Accuracy: 89.02%
+100%|██████████| 5000/5000
+100%|██████████| 2500/2500
+....                               ....                  ....
+Fold:0 Epoch:5/5, Train Accuracy: 99.32%, Eval Accuracy: 94.15%
+100%|██████████| 5000/5000
+100%|██████████| 2500/2500
 ```
 
 ## Repository File Structure
@@ -31,27 +49,51 @@ Predict a binary NLP sentiment classification for the IMDB dataset with 50,000 r
     └── README.md
 
 ## Model's Architecture
+BERT Base has 12 Layers, 768 hidden size, 12 self-attention heads.\
+The model below shows an example of **1-layer**
 ```
-GRU(
-  (embedding): Embedding(180446, 100)
-  (lstm): GRU(100, 128, num_layers=2, batch_first=True, dropout=0.2, bidirectional=True)
-  (out): Linear(in_features=512, out_features=1, bias=True)
-  (sigmoid): Sigmoid()
+BERT(
+  (bert): BertModel(
+    (embeddings): BertEmbeddings(
+      (word_embeddings): Embedding(30522, 768, padding_idx=0)
+      (position_embeddings): Embedding(512, 768)
+      (token_type_embeddings): Embedding(2, 768)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (encoder): BertEncoder(
+      (layer): ModuleList(
+        (0): BertLayer(
+          (attention): BertAttention(
+            (self): BertSelfAttention(
+              (query): Linear(in_features=768, out_features=768, bias=True)
+              (key): Linear(in_features=768, out_features=768, bias=True)
+              (value): Linear(in_features=768, out_features=768, bias=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (output): BertSelfOutput(
+              (dense): Linear(in_features=768, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+          (intermediate): BertIntermediate(
+            (dense): Linear(in_features=768, out_features=3072, bias=True)
+          )
+          (output): BertOutput(
+            (dense): Linear(in_features=3072, out_features=768, bias=True)
+            (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (pooler): BertPooler(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (activation): Tanh()
+    )
+  )
+  (bert_drop): Dropout(p=0.3, inplace=False)
+  (out): Linear(in_features=768, out_features=1, bias=True)
 )
 ```  
-
-## GPU's Menu Accelerator
-```
-Sat Aug 14 00:31:06 2021       
-+-----------------------------------------------------------------------------+
-| NVIDIA-SMI 470.42.01    Driver Version: 460.32.03    CUDA Version: 11.2     |
-|-------------------------------+----------------------+----------------------+
-| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-|                               |                      |               MIG M. |
-|===============================+======================+======================|
-|   0  Tesla P100-PCIE...  Off  | 00000000:00:04.0 Off |                    0 |
-| N/A   39C    P0    33W / 250W |   2047MiB / 16280MiB |      0%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
-```

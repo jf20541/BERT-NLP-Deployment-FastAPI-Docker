@@ -5,9 +5,16 @@
 Predict a binary NLP sentiment classification for the IMDB dataset with 50,000 reviews with an evenly distributed target values **[1:Positive & 2:Negative]** using a **BERT (Bidrectional Representations Encoder Transformer)**.Measure BERT's performance with **accuracy score** since the target values are evenly distributed. 
 
 
-## BERT
-Improves the fine-tuning-based approach by using a masked language model (MLM) where it randomly masked (15%) WordPiece token BERTs objective is to predict the original vocabulary (id) of the masked token. MLM also allows to pre-trained a deep bi-directional by fusing left and the right context.
+## Two BERT Phases
+BERT is a bidirectional pre-trained transformer learning simultaneously on masked language modeling (MLM) objective and next sentence prediction (NSP). With bidirectional, it has a deeper sense of learning because it learns from left to right (vice-versa)
 
+**Pre-Training (understands language and context) & Finetuning (how to solve the problem)**\
+Learns Language by training two unsupervised tasks simultaneously, Mask Language Modeling (MLM) and Next Sentence Prediction (NSP)
+- MLM: it randomly masks out 15% of the words in the input and replaces them with [MASK] tokens
+- NSP:  the model gets pairs of sentences [SEP] tokens and learns to predict if the second sentence is random or not (binary classification problem) 
+
+**Summary for pre-training BERT:**\
+The input is a pair of sentences [SEP] with 15% of the tokens are [MASK]. It converts each token into a pre-trained word-embedding with three vectors (token, segment, and position embeddings). It outputs forward vectors for MLM and binary values for NSP. 
 
 ## Output 
 **BERT Base Model**

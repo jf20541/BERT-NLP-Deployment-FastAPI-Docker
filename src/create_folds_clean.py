@@ -21,9 +21,8 @@ def remove_special_characters(text):
 
 if __name__ == "__main__":
     df = pd.read_csv(config.TRAINING_FILE)
-    # Label encode sentiment values
+    # Label encode sentiment values and remove special characters
     df.sentiment = [1 if each == "positive" else 0 for each in df.sentiment]
-    # remove special characters
     df["review"] = df["review"].apply(remove_special_characters)
 
     # add kfold column for 5-Folds cross-validator
@@ -33,5 +32,4 @@ if __name__ == "__main__":
     kf = StratifiedKFold(n_splits=5)
     for f, (train, valid) in enumerate(kf.split(X=df, y=targets)):
         df.loc[valid, "kfold"] = f
-
-    df.to_csv(config.TRAINING_FILE_CLEAN_FOLDS, index=False)
+    df.to_csv("../inputs/train_fold.csv", index=False)

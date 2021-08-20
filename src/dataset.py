@@ -12,8 +12,8 @@ class IMDBDataset:
     def __len__(self):
         return self.reviews.shape[0]
 
-    def __getitem__(self, item):
-        reviews = str(self.reviews[item])
+    def __getitem__(self, idx):
+        reviews = str(self.reviews[idx])
         reviews = " ".join(reviews.split())
 
         inputs = self.tokenizer.encode_plus(
@@ -27,5 +27,5 @@ class IMDBDataset:
             "ids": torch.tensor(inputs["input_ids"], dtype=torch.long),
             "token_type_ids": torch.tensor(inputs["token_type_ids"], dtype=torch.long),
             "mask": torch.tensor(inputs["attention_mask"], dtype=torch.long),
-            "sentiment": torch.tensor(self.sentiment[item], dtype=torch.float),
+            "sentiment": torch.tensor(self.sentiment[idx], dtype=torch.float),
         }

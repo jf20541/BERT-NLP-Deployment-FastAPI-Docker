@@ -2,7 +2,7 @@ from transformers import BertTokenizer
 
 TRAINING_FILE = "../inputs/train.csv"
 TRAINING_FILE_CLEAN_FOLDS = "../inputs/train_clean_folds.csv"
-BERT_PATH = "bert_based_uncased"
+BERT_PATH = "bert-base-uncased"
 MODEL_PATH = "../models/bert_model.bin"
 TOKEN = BertTokenizer.from_pretrained(BERT_PATH, do_lower_case=True)
 MAX_LEN = 64

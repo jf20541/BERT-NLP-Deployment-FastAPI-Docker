@@ -1,4 +1,4 @@
-# BERT-NLP-Deployment
+# BERT-NLP-DeploymentFastAPI
 
 
 ## Objective

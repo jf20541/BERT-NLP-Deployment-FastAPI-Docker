@@ -1,5 +1,4 @@
-# BERT-NLP-DeploymentFastAPI
-
+# BERT-NLP-Deployment-FastAPI
 
 ## Objective
 Predict a binary NLP sentiment classification for the IMDB dataset with 50,000 reviews with an evenly distributed target values **[1:Positive & 2:Negative]** using a **BERT (Bidrectional Representations Encoder Transformer)**.Measure BERT's performance with **accuracy score** since the target values are evenly distributed. 

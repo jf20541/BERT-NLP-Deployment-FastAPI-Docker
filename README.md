@@ -1,13 +1,42 @@
-# BERT-NLP
+# BERT-NLP-Deployment
 
 
 ## Objective
 Predict a binary NLP sentiment classification for the IMDB dataset with 50,000 reviews with an evenly distributed target values **[1:Positive & 2:Negative]** using a **BERT (Bidrectional Representations Encoder Transformer)**.Measure BERT's performance with **accuracy score** since the target values are evenly distributed. 
 
 
-## BERT
-Improves the fine-tuning-based approach by using a masked language model (MLM) where it randomly masked (15%) WordPiece token BERTs objective is to predict the original vocabulary (id) of the masked token. MLM also allows to pre-trained a deep bi-directional by fusing left and the right context.
+## Two BERT Phases
+BERT is a bidirectional pre-trained transformer learning simultaneously on masked language modeling (MLM) objective and next sentence prediction (NSP). With bidirectional, it has a deeper sense of learning because it learns from left to right (vice-versa)
 
+**Pre-Training (understands language and context) & Finetuning (how to solve the problem)**\
+Learns Language by training two unsupervised tasks simultaneously, Mask Language Modeling (MLM) and Next Sentence Prediction (NSP)
+- MLM: it randomly masks out 15% of the words in the input and replaces them with [MASK] tokens
+- NSP:  the model gets pairs of sentences [SEP] tokens and learns to predict if the second sentence is random or not (binary classification problem) 
+
+**Summary for pre-training BERT:**\
+The input is a pair of sentences [SEP] with 15% of the tokens are [MASK]. It converts each token into a pre-trained word-embedding with three vectors (token, segment, and position embeddings). It outputs forward vectors for MLM and binary values for NSP. 
+
+## Repository File Structure
+    ├── src          
+    │   ├── train.py              # Training BERT model and evaluating metric (accuracy)
+    │   ├── model.py              # BERT Base architecture with 12 Layers, 768 hidden size, 12 self-attention heads
+    │   ├── engine.py             # Class Engine for Training, Evaluation, and BCE Loss function 
+    │   ├── dataset.py            # Custom Dataset that return a paris of [input_ids, targets, tokens, masks] as tensors
+    │   ├── create_folds_clean.py # Removed unwanted characters and initiated Stratified 5-Folds cross-validator
+    │   ├── logistic_reg.py       # Logistic Regression with Bag of Words and evaluated metric
+    │   ├── multi_naivebayes.py   # Naive Bayes Classifier for multinomial models with Bag of Words and evaluated metric
+    │   ├── googlecolab.py        # Set up VSCode on Google Colab 
+    │   └── config.py             # Defined path as global variable
+    ├── inputs
+    │   ├── train_clean_folds.csv # Cleaned Data and Stratified 5-Folds dataset
+    │   └── train.csv             # Kaggle IMDB Dataset 
+    ├── models
+    │   ├── config.json           # BERT based defined hyperparameters
+    │   ├── pytorch_model.bin.    # BERT pre-trained weights
+    │   ├── vocab.txt             # Pretrained vocab files map
+    │   └── bert_model.bin        # IMDB BERT's parameters saved into bert_model.bin 
+    ├── requierments.txt          # Packages used for project
+    └── README.md
 
 ## Output 
 **BERT Base Model**
@@ -46,28 +75,6 @@ Fold: 3, Accuracy = 84.96%
 Fold: 4, Accuracy = 84.80%
 Accuracy Mean = 84.77%
 ```
-
-## Repository File Structure
-    ├── src          
-    │   ├── train.py              # Training BERT model and evaluating metric (accuracy)
-    │   ├── model.py              # BERT Base architecture with 12 Layers, 768 hidden size, 12 self-attention heads
-    │   ├── engine.py             # Class Engine for Training, Evaluation, and BCE Loss function 
-    │   ├── dataset.py            # Custom Dataset that return a paris of [input_ids, targets, tokens, masks] as tensors
-    │   ├── create_folds_clean.py # Removed unwanted characters and initiated Stratified 5-Folds cross-validator
-    │   ├── logistic_reg.py       # Logistic Regression with Bag of Words and evaluated metric
-    │   ├── multi_naivebayes.py   # Naive Bayes Classifier for multinomial models with Bag of Words and evaluated metric
-    │   ├── googlecolab.py        # Set up VSCode on Google Colab 
-    │   └── config.py             # Defined path as global variable
-    ├── inputs
-    │   ├── train_clean_folds.csv # Cleaned Data and Stratified 5-Folds dataset
-    │   └── train.csv             # Kaggle IMDB Dataset 
-    ├── models
-    │   ├── config.json           # BERT based defined hyperparameters
-    │   ├── pytorch_model.bin.    # BERT pre-trained weights
-    │   ├── vocab.txt             # Pretrained vocab files map
-    │   └── bert_model.bin        # IMDB BERT's parameters saved into bert_model.bin 
-    ├── requierments.txt          # Packages used for project
-    └── README.md
 
 ## Model's Architecture
 BERT Base has 12 Layers, 768 hidden size, 12 self-attention heads.\

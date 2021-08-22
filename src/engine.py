@@ -21,7 +21,7 @@ class Engine:
         Returns:
             [type]: final_targets and final_predictions values
         """
-        # set training mode for training data
+        # set training mode
         self.model.train()
         final_targets, final_predictions = [], []
         for data in tqdm(train_loader):

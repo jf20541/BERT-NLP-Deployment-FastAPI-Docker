@@ -77,12 +77,13 @@ Fold: 4, Accuracy = 84.80%
 Accuracy Mean = 84.77%
 ```
 ## Docker
+- [BERT Pretrained-HuggingFace](https://huggingface.co/transformers/pretrained_models.html) to download
 ```bash
  docker build -t BERTfastAPI .
  docker run -ti BERTfastAPI 
  source activate ml 
  
- # Train BERT, Logistic Regression, and Naive Bayes Classifier, respectively 
+ # Train BERT, Logistic Regression, and Naive Bayes Classifier, respectively (output accuracy score)
  cd src/src
  python train.py
  python logistic_reg.py 

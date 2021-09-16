@@ -1,10 +1,8 @@
-from typing import Optional
 from fastapi import FastAPI
 import torch
 import torch.nn as nn
 import config
-from transformers import BertModel
-from transformers import logging
+from transformers import BertModel, logging
 from dataset import IMDBDataset
 
 logging.set_verbosity_warning()
@@ -20,7 +18,7 @@ class BERT(nn.Module):
         self.out = nn.Linear(768, 1)
 
     def forward(self, ids, mask, token_type_ids):
-        o1, o2 = self.bert(ids, mask, token_type_ids, return_dict=False)
+        _, o2 = self.bert(ids, mask, token_type_ids, return_dict=False)
         out = self.bert_drop(o2)
         out = self.out(out)
         return torch.sigmoid(out)

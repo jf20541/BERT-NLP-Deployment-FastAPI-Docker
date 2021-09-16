@@ -36,7 +36,7 @@ The input is a pair of sentences [SEP] with 15% of the tokens are [MASK]. It con
     │   ├── vocab.txt             # Pretrained vocab files map
     │   └── bert_model.bin        # IMDB BERT's parameters saved into bert_model.bin 
     ├── requierments.txt          # Packages used for project
-    ├── Dockerfile                # Dockerize Flask Application 
+    ├── Dockerfile                # Dockerize with FastAPI BERT-NLP Application 
     └── README.md
 
 ## Output 

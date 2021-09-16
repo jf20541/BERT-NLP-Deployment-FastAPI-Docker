@@ -18,6 +18,7 @@ The input is a pair of sentences [SEP] with 15% of the tokens are [MASK]. It con
 ## Repository File Structure
     ├── src          
     │   ├── train.py              # Training BERT model and evaluating metric (accuracy)
+    │   ├── app.py                # Deploy BERT model using FastAPI 
     │   ├── model.py              # BERT Base architecture with 12 Layers, 768 hidden size, 12 self-attention heads
     │   ├── engine.py             # Class Engine for Training, Evaluation, and BCE Loss function 
     │   ├── dataset.py            # Custom Dataset that return a paris of [input_ids, targets, tokens, masks] as tensors
@@ -35,7 +36,7 @@ The input is a pair of sentences [SEP] with 15% of the tokens are [MASK]. It con
     │   ├── vocab.txt             # Pretrained vocab files map
     │   └── bert_model.bin        # IMDB BERT's parameters saved into bert_model.bin 
     ├── requierments.txt          # Packages used for project
-    ├── Dockerfile                # Dockerize Flask Application 
+    ├── Dockerfile                # Dockerize with FastAPI BERT-NLP Application 
     └── README.md
 
 ## Output 
@@ -75,7 +76,23 @@ Fold: 3, Accuracy = 84.96%
 Fold: 4, Accuracy = 84.80%
 Accuracy Mean = 84.77%
 ```
-
+## Docker
+- [BERT Pretrained-HuggingFace](https://huggingface.co/transformers/pretrained_models.html) to download
+```bash
+ docker build -t BERTfastAPI .
+ docker run -ti BERTfastAPI 
+ source activate ml 
+ 
+ # Train BERT, Logistic Regression, and Naive Bayes Classifier, respectively (output accuracy score)
+ cd src/src
+ python train.py
+ python logistic_reg.py 
+ python multi_naivebayes.py
+ 
+ # Deploy Model using FastAPI 
+ # It will take long (downloading BERT pre-trained and training on 2-5 Epochs)
+ python app.py
+```
 ## Model's Architecture
 BERT Base has 12 Layers, 768 hidden size, 12 self-attention heads.\
 The model below shows an example of **1-layer**

@@ -1,8 +1,7 @@
 # BERT-NLP-Deployment-FastAPI-Docker
 
 ## Objective
-Predict a binary NLP sentiment classification for the IMDB dataset with 50,000 reviews with an evenly distributed target values **[1:Positive & 2:Negative]** using a **BERT (Bidrectional Representations Encoder Transformer)**.Measure BERT's performance with **accuracy score** since the target values are evenly distributed. 
-
+Deployed using FastAPI on a NLP binary classification problem for a balanced IMDB dataset with 50,000 reviews [1:Positive & 2:Negative] using a BERT (Bidrectional Representations Encoder Transformer). 
 
 ## Two BERT Phases
 BERT is a bidirectional pre-trained transformer learning simultaneously on masked language modeling (MLM) objective and next sentence prediction (NSP). With bidirectional, it has a deeper sense of learning because it learns from left to right (vice-versa)
